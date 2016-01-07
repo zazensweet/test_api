@@ -62,14 +62,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 各行のセルを返す
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        // カスタムCellのxibファイルを作成してやる
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
         
         switch indexPath.row {
             
         case 0:
             // フリーワード用のテキストフィールド
-            let cellWidth = cell.contentView.frame.width
-            let cellHeight = cell.contentView.frame.height
+            let cellWidth = cell.frame.width
+            let cellHeight = cell.frame.height
             
             freeWordTextField.frame = CGRectMake(0,0,cellWidth,cellHeight)
             freeWordTextField.backgroundColor = UIColor(colorLiteralRed: 0.97, green: 0.97, blue: 0.97, alpha: 1)

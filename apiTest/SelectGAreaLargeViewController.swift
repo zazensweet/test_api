@@ -1,30 +1,30 @@
 //
-//  SelectPrefViewController.swift
+//  SelectGAreaLargeViewController.swift
 //  apiTest
 //
-//  Created by Shinichiro Yamamoto on 2016/01/06.
+//  Created by Shinichiro Yamamoto on 2016/01/07.
 //  Copyright © 2016年 shinichiro yamamoto. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 
-class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     // テーブルビュー
-    @IBOutlet weak var selectPrefTable: UITableView!
+    @IBOutlet weak var selectGAreaLargeTable: UITableView!
     
     // 手前のビューコントローラーから
     var selfTitle = String()
-    var areaCode = String()
+    var prefCode = String()
     
     // セル
     var sltCell = String()
     var sltCellCode = String()
     
     // API URL JSON
-    let requestUrl = "http://api.gnavi.co.jp/master/PrefSearchAPI/20150630/"
+    let requestUrl = "http://api.gnavi.co.jp/master/GAreaLargeSearchAPI/20150630/"
     
     // JSONデータ取得用
     var jsonData: NSArray!
@@ -38,38 +38,40 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
         // コントローラーのタイトルを設定する（手前のコントローラーのセルより）
         self.title = selfTitle
         
-        selectPrefTable.delegate = self
-        selectPrefTable.dataSource = self
+        selectGAreaLargeTable.delegate = self
+        selectGAreaLargeTable.dataSource = self
         
         // JSONをゲット
         Alamofire.request(.GET, requestUrl, parameters: ["keyid" : gnavi.apikey, "format" : "json"]).responseJSON { response in
             
-            self.jsonData = response.result.value!["pref"] as! NSArray
+            self.jsonData = response.result.value!["garea_large"] as! NSArray
             
-            self.sltPref()
+            self.sltGAreaLarge()
             
             self.testPrint()
             
         }
         
     }
+
     
-    
-    // 選択したエリアの都道府県に絞る
-    func sltPref() {
+    // 選択した都道府県のエリアLに絞る
+    func sltGAreaLarge() {
+        sortJsonData = [selfTitle]
         for jd in jsonData {
-            if jd["area_code"] as! String == areaCode {
+            if jd["pref"]!!["pref_code"] as! String == prefCode {
                 sortJsonData.append(jd)
             }
         }
         sortJsonDataArray = sortJsonData
-        selectPrefTable.reloadData()
+        selectGAreaLargeTable.reloadData()
     }
     
     
     func testPrint() {
         
-        print(sortJsonDataArray)
+        // print(prefCode)
+         print(sortJsonDataArray)
         // print(jsonData)
         // print(jsonData[0]["area_code"])
         // print(areaCode)
@@ -79,12 +81,12 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     // MARK:- テーブルビュー
-    
-    
+
+
     /*
     // セクションの個数を返す
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return
+        return
     }
     */
     
@@ -99,9 +101,9 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // セクション毎の行数を返す
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-        return sortJsonDataArray == nil ? 0 : sortJsonDataArray!.count
         
+        return sortJsonDataArray == nil ? 0 : sortJsonDataArray!.count
+
     }
     
     
@@ -110,13 +112,18 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
         
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+//        if sortJsonDataArray[indexPath.row]["areaname_l"] == nil {
+//            return cell
+//        }
         
-        if sortJsonDataArray[indexPath.row]["pref_name"] == nil {
-            return cell
+        if indexPath.row == 0 {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.textLabel?.text = "\(selfTitle)を指定する"
+            cell.textLabel!.font = UIFont.boldSystemFontOfSize(UIFont.labelFontSize())
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell.textLabel?.text = sortJsonDataArray[indexPath.row]["areaname_l"] == nil ? "-" : sortJsonDataArray[indexPath.row]["areaname_l"] as! String
         }
-        
-        cell.textLabel?.text = sortJsonDataArray[indexPath.row]["pref_name"] == nil ? "-" : sortJsonDataArray[indexPath.row]["pref_name"] as! String
         
         return cell
         
@@ -130,25 +137,40 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         
         // セルの選択ハイライト戻す
-        selectPrefTable.deselectRowAtIndexPath(indexPath, animated: true)
+        selectGAreaLargeTable.deselectRowAtIndexPath(indexPath, animated: true)
         
-        sltCell = sortJsonDataArray[indexPath.row]["pref_name"] as! String
-        sltCellCode = sortJsonDataArray[indexPath.row]["pref_code"] as! String
-        
-        performSegueWithIdentifier("selectGAreaLargeSegue", sender: nil)
-        
-    }
-    
-    
-    // セグエ準備
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if (segue.identifier == "selectGAreaLargeSegue") {
-            (segue.destinationViewController as! SelectGAreaLargeViewController).selfTitle = sltCell
-            (segue.destinationViewController as! SelectGAreaLargeViewController).prefCode = sltCellCode
+        if indexPath.row == 0 {
+            print("指定して最初の画面に戻る")
+            print(selfTitle)
+            print(prefCode)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        } else {
+            sltCell = sortJsonDataArray[indexPath.row]["areaname_l"] as! String
+            sltCellCode = sortJsonDataArray[indexPath.row]["areacode_l"] as! String
         }
         
+        // performSegueWithIdentifier("selectGAreaLargeSegue", sender: nil)
+        
     }
+    
+    
+//    // セグエ準備
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//        if (segue.identifier == "selectGAreaLargeSegue") {
+//            (segue.destinationViewController as! SelectGAreaLargeViewController).selfTitle = sltCell
+//            (segue.destinationViewController as! SelectGAreaLargeViewController).prefCode = sltCellCode
+//        }
+//        
+//    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     override func didReceiveMemoryWarning() {
