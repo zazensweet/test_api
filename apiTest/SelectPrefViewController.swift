@@ -31,12 +31,16 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
     var sortJsonData = [AnyObject]()
     var sortJsonDataArray: NSArray!
     
+    // SearchModel
+    var searchModel: SearchModel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // コントローラーのタイトルを設定する（手前のコントローラーのセルより）
-        self.title = selfTitle
+        // self.title = selfTitle
+        self.title = searchModel.area
         
         selectPrefTable.delegate = self
         selectPrefTable.dataSource = self

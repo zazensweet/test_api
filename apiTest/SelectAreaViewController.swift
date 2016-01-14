@@ -27,6 +27,9 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // JSONデータ取得用
     var jsonData: NSArray!
+    
+    // SearchModel
+    var searchModel: SearchModel!
 
     
     override func viewDidLoad() {
@@ -113,20 +116,24 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
         sltCell = jsonData[indexPath.row]["area_name"] as! String
         sltCellCode = jsonData[indexPath.row]["area_code"] as! String
         
+        // 試しに
+        searchModel.area = jsonData[indexPath.row]["area_name"] as! String
+        
+        
         performSegueWithIdentifier("selectPrefSegue", sender: nil)
         
     }
     
     
     // セグエ準備
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if (segue.identifier == "selectPrefSegue") {
-            (segue.destinationViewController as! SelectPrefViewController).selfTitle = sltCell
-            (segue.destinationViewController as! SelectPrefViewController).areaCode = sltCellCode
-        }
-        
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//        if (segue.identifier == "selectPrefSegue") {
+//            (segue.destinationViewController as! SelectPrefViewController).selfTitle = sltCell
+//            (segue.destinationViewController as! SelectPrefViewController).areaCode = sltCellCode
+//        }
+//        
+//    }
     
     
     override func didReceiveMemoryWarning() {

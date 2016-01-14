@@ -16,21 +16,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var startTable: UITableView!
     
     // フリーワード用のテキストフィールド
-    var freeWordTextField = UITextField()
+    var freeWord: UITextField!
     
     // セル
     var sltCell = String()
     
+    // カスタムセル
+    var customCell: CustomCellFreeWord!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // コントローラーのタイトルを設定する
         self.title = "ぐるなびぃ"
         
-        startTable.delegate = self
-        startTable.dataSource = self
-        freeWordTextField.delegate = self
+        self.startTable.delegate = self
+        self.startTable.dataSource = self
+        
+        //カスタムセルを指定
+        self.customCell = UINib(nibName: "CustomCellFreeWord", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! CustomCellFreeWord
+        
+        self.freeWord = self.customCell.freeWordTextField
+        
+        self.freeWord.delegate = self
         
     }
 
@@ -61,40 +70,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     // 各行のセルを返す
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        // カスタムCellのxibファイルを作成してやる
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
-        
+
         switch indexPath.row {
             
         case 0:
-            // フリーワード用のテキストフィールド
-            let cellWidth = cell.frame.width
-            let cellHeight = cell.frame.height
-            
-            freeWordTextField.frame = CGRectMake(0,0,cellWidth,cellHeight)
-            freeWordTextField.backgroundColor = UIColor(colorLiteralRed: 0.97, green: 0.97, blue: 0.97, alpha: 1)
-            freeWordTextField.placeholder = "フリーワード"
-            freeWordTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
-            
-            cell.contentView.addSubview(freeWordTextField)
-            
-            // セルの設定
-            cell.accessoryType = UITableViewCellAccessoryType.None
-            
+            return self.customCell
+
         case 1:
-            // セルの設定
+            let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
             cell.textLabel?.text = "エリアを選ぶ"
             sltCell = (cell.textLabel?.text)!
-            
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            return cell
             
         default:
-            break
-            
+            return UITableViewCell(style: .Default, reuseIdentifier: "Cell")
         }
         
-        return cell
+        
         
     }
     
@@ -104,7 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // テキストフィールド改行でキーボードとじる
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.view.endEditing(true)
+        self.freeWord.endEditing(true)
         return false
     }
     
