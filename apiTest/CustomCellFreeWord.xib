@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="フリーワード" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="auR-uO-fvd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="16" y="0.0" width="304" height="43"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="auR-uO-fvd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="O8g-2n-NgT"/>
-                    <constraint firstItem="auR-uO-fvd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SK0-x2-Lbk"/>
+                    <constraint firstItem="auR-uO-fvd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="SK0-x2-Lbk"/>
                     <constraint firstAttribute="bottom" secondItem="auR-uO-fvd" secondAttribute="bottom" id="d31-oN-kbb"/>
                     <constraint firstAttribute="trailing" secondItem="auR-uO-fvd" secondAttribute="trailing" id="lKX-tJ-4TO"/>
                 </constraints>

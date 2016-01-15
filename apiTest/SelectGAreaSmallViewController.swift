@@ -1,24 +1,24 @@
 //
-//  SelectPrefViewController.swift
+//  SelectGAreaSmallViewController.swift
 //  apiTest
 //
-//  Created by Shinichiro Yamamoto on 2016/01/06.
+//  Created by Shinichiro Yamamoto on 2016/01/15.
 //  Copyright © 2016年 shinichiro yamamoto. All rights reserved.
 //
 
-// エリア名：都道府県一覧
+// M名：S一覧
 
 import UIKit
 import Alamofire
 
-class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectGAreaSmallViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     // テーブルビュー
-    @IBOutlet weak var selectPrefTable: UITableView!
+    @IBOutlet weak var selectGAreaSmallTable: UITableView!
     
     // API URL JSON
-    let requestUrl = "http://api.gnavi.co.jp/master/PrefSearchAPI/20150630/"
+    let requestUrl = "http://api.gnavi.co.jp/master/GAreaSmallSearchAPI/20150630/"
     
     // JSONデータ取得用
     var jsonData: NSArray!
@@ -33,15 +33,15 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
 
         // コントローラーのタイトルを設定する（手前のコントローラーのセルより）
-        self.title = searchModel.area
+        self.title = searchModel.gAreaM
         
-        self.selectPrefTable.delegate = self
-        self.selectPrefTable.dataSource = self
+        self.selectGAreaSmallTable.delegate = self
+        self.selectGAreaSmallTable.dataSource = self
         
         // JSONをゲット
         Alamofire.request(.GET, requestUrl, parameters: ["keyid" : gnavi.apikey, "format" : "json"]).responseJSON { response in
             
-            self.jsonData = response.result.value!["pref"] as! NSArray
+            self.jsonData = response.result.value!["garea_small"] as! NSArray
             
             self.sorter()
             
@@ -49,20 +49,21 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
             
         }
         
-        self.selectPrefTable.tableFooterView = UIView()
+        self.selectGAreaSmallTable.tableFooterView = UIView()
         
     }
+
     
-    
-    // 選択したエリアの都道府県に絞る
+    // 選択したエリアMからエリアSに絞る
     func sorter() {
+        sortJsonData = [self.title!]
         for jd in jsonData {
-            if jd["area_code"] as! String == searchModel.areaCode {
+            if jd["garea_middle"]!!["areacode_m"] as! String == searchModel.gAreaMCode {
                 sortJsonData.append(jd)
             }
         }
         sortJsonDataArray = sortJsonData
-        selectPrefTable.reloadData()
+        selectGAreaSmallTable.reloadData()
     }
     
     
@@ -98,7 +99,7 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // セクション毎の行数を返す
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
+        
         return sortJsonDataArray == nil ? 0 : sortJsonDataArray!.count
         
     }
@@ -109,42 +110,47 @@ class SelectPrefViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
         
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        //        if sortJsonDataArray[indexPath.row]["areaname_l"] == nil {
+        //            return cell
+        //        }
         
-        if sortJsonDataArray[indexPath.row]["pref_name"] == nil {
-            return cell
+        if indexPath.row == 0 {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.textLabel?.text = "\(self.title!)を指定する"
+            cell.textLabel!.font = UIFont.boldSystemFontOfSize(UIFont.labelFontSize())
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell.textLabel?.text = "\(sortJsonDataArray[indexPath.row]["areaname_s"] == nil ? "-" : sortJsonDataArray[indexPath.row]["areaname_s"] as! String)を指定する"
+            cell.accessoryType = UITableViewCellAccessoryType.None
         }
-        
-        cell.textLabel?.text = sortJsonDataArray[indexPath.row]["pref_name"] == nil ? "-" : sortJsonDataArray[indexPath.row]["pref_name"] as! String
         
         return cell
         
     }
     
     
-    // MARK:- セグエ
-    
-    
     // セルをタップ
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         
         // セルの選択ハイライト戻す
-        selectPrefTable.deselectRowAtIndexPath(indexPath, animated: true)
+        self.selectGAreaSmallTable.deselectRowAtIndexPath(indexPath, animated: true)
         
-        searchModel.pref = sortJsonDataArray[indexPath.row]["pref_name"] as! String
-        searchModel.prefCode = sortJsonDataArray[indexPath.row]["pref_code"] as! String
-        
-        performSegueWithIdentifier("selectGAreaLargeSegue", sender: nil)
-        
-    }
-    
-    
-    // セグエ準備
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if (segue.identifier == "selectGAreaLargeSegue") {
-            (segue.destinationViewController as! SelectGAreaLargeViewController).searchModel = self.searchModel
+        if indexPath.row == 0 {
+            
+            searchModel.selectArea = searchModel.gAreaM
+            
+            searchModel.gAreaS = ""
+            searchModel.gAreaSCode = ""
+            
+        } else {
+            
+            searchModel.gAreaS = sortJsonDataArray[indexPath.row]["areaname_s"] as! String
+            searchModel.gAreaSCode = sortJsonDataArray[indexPath.row]["areacode_s"] as! String
+            searchModel.selectArea = searchModel.gAreaS
+            
         }
+        
+        self.navigationController?.popToRootViewControllerAnimated(true)
         
     }
     

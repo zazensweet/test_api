@@ -6,6 +6,8 @@
 //  Copyright © 2016年 shinichiro yamamoto. All rights reserved.
 //
 
+// 都道府県名：L一覧
+
 import UIKit
 import Alamofire
 
@@ -15,14 +17,6 @@ class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UIT
     // テーブルビュー
     @IBOutlet weak var selectGAreaLargeTable: UITableView!
     
-    // 手前のビューコントローラーから
-    var selfTitle = String()
-    var prefCode = String()
-    
-    // セル
-    var sltCell = String()
-    var sltCellCode = String()
-    
     // API URL JSON
     let requestUrl = "http://api.gnavi.co.jp/master/GAreaLargeSearchAPI/20150630/"
     
@@ -31,35 +25,40 @@ class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UIT
     var sortJsonData = [AnyObject]()
     var sortJsonDataArray: NSArray!
     
+    // SearchModel
+    var searchModel = SearchModel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // コントローラーのタイトルを設定する（手前のコントローラーのセルより）
-        self.title = selfTitle
+        self.title = searchModel.pref
         
-        selectGAreaLargeTable.delegate = self
-        selectGAreaLargeTable.dataSource = self
+        self.selectGAreaLargeTable.delegate = self
+        self.selectGAreaLargeTable.dataSource = self
         
         // JSONをゲット
         Alamofire.request(.GET, requestUrl, parameters: ["keyid" : gnavi.apikey, "format" : "json"]).responseJSON { response in
             
             self.jsonData = response.result.value!["garea_large"] as! NSArray
             
-            self.sltGAreaLarge()
+            self.sorter()
             
             self.testPrint()
             
         }
         
+        self.selectGAreaLargeTable.tableFooterView = UIView()
+        
     }
 
     
-    // 選択した都道府県のエリアLに絞る
-    func sltGAreaLarge() {
-        sortJsonData = [selfTitle]
+    // 選択した都道府県からエリアLに絞る
+    func sorter() {
+        sortJsonData = [self.title!]
         for jd in jsonData {
-            if jd["pref"]!!["pref_code"] as! String == prefCode {
+            if jd["pref"]!!["pref_code"] as! String == searchModel.prefCode {
                 sortJsonData.append(jd)
             }
         }
@@ -118,7 +117,7 @@ class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UIT
         
         if indexPath.row == 0 {
             cell.accessoryType = UITableViewCellAccessoryType.None
-            cell.textLabel?.text = "\(selfTitle)を指定する"
+            cell.textLabel?.text = "\(self.title!)を指定する"
             cell.textLabel!.font = UIFont.boldSystemFontOfSize(UIFont.labelFontSize())
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -137,40 +136,40 @@ class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         
         // セルの選択ハイライト戻す
-        selectGAreaLargeTable.deselectRowAtIndexPath(indexPath, animated: true)
+        self.selectGAreaLargeTable.deselectRowAtIndexPath(indexPath, animated: true)
         
         if indexPath.row == 0 {
-            print("指定して最初の画面に戻る")
-            print(selfTitle)
-            print(prefCode)
+
+            searchModel.selectArea = searchModel.pref
+            
+            searchModel.gAreaL = ""
+            searchModel.gAreaLCode = ""
+            searchModel.gAreaM = ""
+            searchModel.gAreaMCode = ""
+            searchModel.gAreaS = ""
+            searchModel.gAreaSCode = ""
+            
             self.navigationController?.popToRootViewControllerAnimated(true)
+            
         } else {
-            sltCell = sortJsonDataArray[indexPath.row]["areaname_l"] as! String
-            sltCellCode = sortJsonDataArray[indexPath.row]["areacode_l"] as! String
+            
+            searchModel.gAreaL = sortJsonDataArray[indexPath.row]["areaname_l"] as! String
+            searchModel.gAreaLCode = sortJsonDataArray[indexPath.row]["areacode_l"] as! String
+            performSegueWithIdentifier("selectGAreaMiddleSegue", sender: nil)
+            
         }
-        
-        // performSegueWithIdentifier("selectGAreaLargeSegue", sender: nil)
         
     }
     
     
-//    // セグエ準備
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//        if (segue.identifier == "selectGAreaLargeSegue") {
-//            (segue.destinationViewController as! SelectGAreaLargeViewController).selfTitle = sltCell
-//            (segue.destinationViewController as! SelectGAreaLargeViewController).prefCode = sltCellCode
-//        }
-//        
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
+    // セグエ準備
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "selectGAreaMiddleSegue") {
+            (segue.destinationViewController as! SelectGAreaMiddleViewController).searchModel = self.searchModel
+        }
+        
+    }
     
     
     override func didReceiveMemoryWarning() {

@@ -24,6 +24,19 @@ class SearchModel {
     }
     
     
+    // エリアを選ぶ
+    var _selectArea: String = "エリアを選ぶ"
+    
+    var selectArea: String {
+        get {
+            return self._selectArea
+        }
+        set(newValue) {
+            self._selectArea = newValue
+        }
+    }
+    
+    
     // エリア：Area
     var _area: String = ""
     
@@ -33,6 +46,17 @@ class SearchModel {
         }
         set(newValue) {
             self._area = newValue
+        }
+    }
+    
+    var _areaCode: String = ""
+    
+    var areaCode: String {
+        get {
+            return self._areaCode
+        }
+        set(newValue) {
+            self._areaCode = newValue
         }
     }
     
@@ -49,6 +73,17 @@ class SearchModel {
         }
     }
     
+    var _prefCode: String = ""
+    
+    var prefCode: String {
+        get {
+            return self._prefCode
+        }
+        set(newValue) {
+            self._prefCode = newValue
+        }
+    }
+    
     
     // エリアL：GAreaLarge
     var _gAreaL: String = ""
@@ -59,6 +94,17 @@ class SearchModel {
         }
         set(newValue) {
             self._gAreaL = newValue
+        }
+    }
+    
+    var _gAreaLCode: String = ""
+    
+    var gAreaLCode: String {
+        get {
+            return self._gAreaLCode
+        }
+        set(newValue) {
+            self._gAreaLCode = newValue
         }
     }
     
@@ -75,6 +121,17 @@ class SearchModel {
         }
     }
     
+    var _gAreaMCode: String = ""
+    
+    var gAreaMCode: String {
+        get {
+            return self._gAreaMCode
+        }
+        set(newValue) {
+            self._gAreaMCode = newValue
+        }
+    }
+    
     
     // エリアS
     var _gAreaS: String = ""
@@ -85,6 +142,17 @@ class SearchModel {
         }
         set(newValue) {
             self._gAreaS = newValue
+        }
+    }
+    
+    var _gAreaSCode: String = ""
+    
+    var gAreaSCode: String {
+        get {
+            return self._gAreaSCode
+        }
+        set(newValue) {
+            self._gAreaSCode = newValue
         }
     }
     

@@ -6,6 +6,8 @@
 //  Copyright © 2016年 shinichiro yamamoto. All rights reserved.
 //
 
+// エリアを選ぶ：エリア一覧
+
 import UIKit
 import Alamofire
 
@@ -15,13 +17,6 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
     // テーブルビュー
     @IBOutlet weak var selectAreaTable: UITableView!
     
-    // 手前のビューコントローラーから
-    var selfTitle = String()
-    
-    // セル
-    var sltCell = String()
-    var sltCellCode = String()
-    
     // API URL JSON
     let requestUrl = "http://api.gnavi.co.jp/master/AreaSearchAPI/20150630/"
     
@@ -29,17 +24,17 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
     var jsonData: NSArray!
     
     // SearchModel
-    var searchModel: SearchModel!
-
+    var searchModel = SearchModel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // コントローラーのタイトルを設定する（手前のコントローラーのセルより）
-        self.title = selfTitle
+        self.title = searchModel.selectArea
         
-        selectAreaTable.delegate = self
-        selectAreaTable.dataSource = self
+        self.selectAreaTable.delegate = self
+        self.selectAreaTable.dataSource = self
         
         // JSONをゲット
         Alamofire.request(.GET, requestUrl, parameters: ["keyid" : gnavi.apikey, "format" : "json"]).responseJSON { response in
@@ -50,6 +45,8 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
             self.testPrint()
             
         }
+        
+        self.selectAreaTable.tableFooterView = UIView()
     
     }
     
@@ -113,12 +110,8 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
         // セルの選択ハイライト戻す
         selectAreaTable.deselectRowAtIndexPath(indexPath, animated: true)
         
-        sltCell = jsonData[indexPath.row]["area_name"] as! String
-        sltCellCode = jsonData[indexPath.row]["area_code"] as! String
-        
-        // 試しに
-        searchModel.area = jsonData[indexPath.row]["area_name"] as! String
-        
+        self.searchModel.area = jsonData[indexPath.row]["area_name"] as! String
+        self.searchModel.areaCode = jsonData[indexPath.row]["area_code"] as! String
         
         performSegueWithIdentifier("selectPrefSegue", sender: nil)
         
@@ -126,14 +119,13 @@ class SelectAreaViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     // セグエ準備
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//        if (segue.identifier == "selectPrefSegue") {
-//            (segue.destinationViewController as! SelectPrefViewController).selfTitle = sltCell
-//            (segue.destinationViewController as! SelectPrefViewController).areaCode = sltCellCode
-//        }
-//        
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "selectPrefSegue") {
+            (segue.destinationViewController as! SelectPrefViewController).searchModel = self.searchModel
+        }
+        
+    }
     
     
     override func didReceiveMemoryWarning() {
