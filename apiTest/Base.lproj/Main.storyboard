@@ -70,6 +70,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="トップ画面" id="fy5-cN-QXa"/>
                     <connections>
+                        <outlet property="searchBtn" destination="zbN-wI-WXy" id="ipu-gE-gRQ"/>
                         <outlet property="sortResult" destination="GCS-QA-Ent" id="NBS-q8-50X"/>
                         <outlet property="startTable" destination="cQU-sW-6Gh" id="ByS-wg-zKj"/>
                         <segue destination="Bpb-PR-65a" kind="show" identifier="searchSegue" id="5Kd-Qu-myH"/>
@@ -136,8 +137,26 @@
                     <view key="view" contentMode="scaleToFill" id="eE7-N8-xdv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HXs-Jd-BvU">
+                                <rect key="frame" x="20" y="114" width="560" height="486"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="HXs-Jd-BvU" secondAttribute="trailing" constant="20" id="AnU-in-hOb"/>
+                            <constraint firstItem="2Sx-gu-YWD" firstAttribute="top" secondItem="HXs-Jd-BvU" secondAttribute="bottom" id="O9n-Bq-at6"/>
+                            <constraint firstItem="HXs-Jd-BvU" firstAttribute="leading" secondItem="eE7-N8-xdv" secondAttribute="leading" constant="20" id="WV6-mW-uvk"/>
+                            <constraint firstItem="HXs-Jd-BvU" firstAttribute="top" secondItem="kJ3-LG-G5L" secondAttribute="bottom" constant="50" id="dxv-df-2bA"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="testTextView" destination="HXs-Jd-BvU" id="ajP-Rg-sAX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMl-xr-Jk2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

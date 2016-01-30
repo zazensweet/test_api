@@ -41,8 +41,8 @@ class SearchController {
 //    }
 
     
-    func setOption(areaPara:String, areaCode:String, hitPerPage: Int) {
-        option = ["keyid" : gnavi.apikey, "format" : "json", areaPara : areaCode, "hit_per_page" : hitPerPage]
+    func setOption(areaPara:String, areaCode:String, freeWord:String, hitPerPage:Int) {
+        option = ["keyid" : gnavi.apikey, "format" : "json", areaPara : areaCode, "freeword" : freeWord, "hit_per_page" : hitPerPage]
     }
 
     

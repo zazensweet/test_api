@@ -26,6 +26,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // SearchModelの選択したエリア情報用
     var sec: String? // コード
     var sep: String? // パラメータ名
+    var fw: String? // フリーワード
     var hpp: Int? // 表示件数
     
     // SearchController
@@ -36,8 +37,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         // コントローラーのタイトルを設定する（絞り込んだエリアの名前）
-        self.title = searchModel.selectArea
-        
+        if searchModel.selectArea == "エリアを選ぶ" {
+            self.title = searchModel.freeWord
+        } else if searchModel.freeWord == "" {
+            self.title = searchModel.selectArea
+        } else {
+            self.title = "\(searchModel.selectArea)（\(searchModel.freeWord)）"
+        }
+            
         self.searchTable.delegate = self
         self.searchTable.dataSource = self
         
@@ -46,12 +53,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // 選択したエリア情報を代入
         self.sec = searchModel.selectAreaCode
         self.sep = searchModel.selectAreaPara
+        self.fw = searchModel.freeWord
         self.hpp = 20
         
         self.searchCont.delegate = self
     
         // SearchControllerのoptionに情報を渡す
-        self.searchCont.setOption(sep!, areaCode:sec!, hitPerPage:hpp!)
+        self.searchCont.setOption(sep!, areaCode:sec!, freeWord:fw!, hitPerPage:hpp!)
         
         // 絞り込んだ条件で検索開始
         self.searchCont.start()
@@ -125,8 +133,17 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // セルの選択ハイライト戻す
         self.searchTable.deselectRowAtIndexPath(indexPath, animated: true)
         
+        // 選択したエリア情報をおさめる
         self.searchResult.name = jsonData["rest"]![indexPath.row]["name"] as! String
-
+        self.searchResult.name = jsonData["rest"]![indexPath.row]["name"] as! String
+        self.searchResult.name_kana = jsonData["rest"]![indexPath.row]["name_kana"] as! String
+        self.searchResult.url = jsonData["rest"]![indexPath.row]["url"] as! String
+        self.searchResult.address = jsonData["rest"]![indexPath.row]["address"] as! String
+        self.searchResult.tel = jsonData["rest"]![indexPath.row]["tel"] as! String
+        self.searchResult.opentime = jsonData["rest"]![indexPath.row]["opentime"] as! String
+        self.searchResult.holiday = jsonData["rest"]![indexPath.row]["holiday"] as! String
+        self.searchResult.shopImage = jsonData["rest"]![indexPath.row]["image_url"]!!["shop_image1"] as! String
+            
         performSegueWithIdentifier("searchDetailSegue", sender: nil)
         
     }
@@ -136,6 +153,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if (segue.identifier == "searchDetailSegue") {
+            (segue.destinationViewController as! SearchDetailViewController).searchModel = self.searchModel
             (segue.destinationViewController as! SearchDetailViewController).searchResult = self.searchResult
         }
         

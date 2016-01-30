@@ -52,6 +52,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // 空の行のセパレータを消す
         self.startTable.tableFooterView = UIView()
         
+        // 初期は検索ボタンは無効化
+        self.searchBtn.enabled = false
+        self.searchBtn.alpha = 0.2
+        
     }
 
     
@@ -102,14 +106,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     // MARK:- テキストフィールド
-
+    
+    
+    // フリーワードをsearchModelにおさめる
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        searchModel.freeWord = self.freeWord.text!
+        
+        // 検索ボタンを有効にする
+        self.onSearchBtn()
+        
+        self.startTable.reloadData()
+        
+    }
+    
     
     // テキストフィールド改行でキーボードとじる
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        searchModel.freeWord = self.freeWord.text!
+        
         self.freeWord.endEditing(true)
+        
         self.printSearchModel()
+        
         return false
+        
     }
     
     
@@ -162,7 +182,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.startTable.reloadData()
         
+        // 検索ボタンを有効にする
+        self.onSearchBtn()
+        
         self.printSearchModel()
+        
+    }
+    
+    // 検索ボタンを有効にする
+    func onSearchBtn() {
+        
+        if self.searchModel.selectArea != "エリアを選ぶ" || self.searchModel.freeWord != "" {
+            
+            self.searchBtn.enabled = true
+            self.searchBtn.alpha = 1.0
+            
+        } else if self.searchModel.selectArea == "エリアを選ぶ" || self.searchModel.freeWord == "" {
+            
+            self.searchBtn.enabled = false
+            self.searchBtn.alpha = 0.2
+            
+        }
         
     }
     
