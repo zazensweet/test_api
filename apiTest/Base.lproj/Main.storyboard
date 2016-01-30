@@ -28,9 +28,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="KTz-zY-x9k" kind="show" identifier="selectAreaSegue" id="JQ7-kV-IUL"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -52,6 +49,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="検索する"/>
+                                <connections>
+                                    <action selector="goSearchBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GS2-qI-SNw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -72,11 +72,57 @@
                     <connections>
                         <outlet property="sortResult" destination="GCS-QA-Ent" id="NBS-q8-50X"/>
                         <outlet property="startTable" destination="cQU-sW-6Gh" id="ByS-wg-zKj"/>
+                        <segue destination="Bpb-PR-65a" kind="show" identifier="searchSegue" id="5Kd-Qu-myH"/>
+                        <segue destination="KTz-zY-x9k" kind="show" identifier="selectAreaSegue" id="WVW-ig-IkP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="376" y="684"/>
+        </scene>
+        <!--SearchViewController-->
+        <scene sceneID="Ql0-Jk-zJQ">
+            <objects>
+                <viewController title="SearchViewController" id="Bpb-PR-65a" customClass="SearchViewController" customModule="apiTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ouP-H5-2a3"/>
+                        <viewControllerLayoutGuide type="bottom" id="iUU-fh-vmJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8dH-Ee-Yil">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rnW-lj-kdU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="Um4-k2-deB">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Um4-k2-deB" id="sR7-wz-xPy">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iUU-fh-vmJ" firstAttribute="top" secondItem="rnW-lj-kdU" secondAttribute="bottom" id="0nW-B5-YxI"/>
+                            <constraint firstItem="rnW-lj-kdU" firstAttribute="leading" secondItem="8dH-Ee-Yil" secondAttribute="leading" id="8Wf-2j-ZQo"/>
+                            <constraint firstAttribute="trailing" secondItem="rnW-lj-kdU" secondAttribute="trailing" id="Urz-bq-Htw"/>
+                            <constraint firstItem="rnW-lj-kdU" firstAttribute="top" secondItem="8dH-Ee-Yil" secondAttribute="top" id="mXN-KC-nHE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ywx-pd-R4f"/>
+                    <connections>
+                        <outlet property="searchTable" destination="rnW-lj-kdU" id="84i-oZ-t22"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bgq-ci-ypA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="376" y="1399"/>
         </scene>
         <!--SelectAreaViewController-->
         <scene sceneID="nHl-7h-c88">
@@ -110,9 +156,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="9dI-00-1Tq" kind="show" identifier="selectPrefSegue" id="XtC-Jx-02n"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -127,6 +170,7 @@
                     </view>
                     <connections>
                         <outlet property="selectAreaTable" destination="wxC-je-VZr" id="dIm-ud-mEc"/>
+                        <segue destination="9dI-00-1Tq" kind="show" identifier="selectPrefSegue" id="nJB-NP-ctf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HRE-qO-hee" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -165,9 +209,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Nul-Jo-Z3N" kind="show" identifier="selectGAreaLargeSegue" id="1TX-i3-jZd"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -182,6 +223,7 @@
                     </view>
                     <connections>
                         <outlet property="selectPrefTable" destination="83Q-0Z-9Pg" id="uXq-tm-sxp"/>
+                        <segue destination="Nul-Jo-Z3N" kind="show" identifier="selectGAreaLargeSegue" id="B21-Bg-pWf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tEB-9c-wMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,9 +262,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="qra-BX-PMa" kind="show" identifier="selectGAreaMiddleSegue" id="EIz-wB-sy3"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -237,6 +276,7 @@
                     </view>
                     <connections>
                         <outlet property="selectGAreaLargeTable" destination="acH-0V-NqF" id="2nR-7r-rZJ"/>
+                        <segue destination="qra-BX-PMa" kind="show" identifier="selectGAreaMiddleSegue" id="UBm-Sp-Mqt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Nz-jV-mIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -270,14 +310,11 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="efr-2m-M4S" kind="show" identifier="selectGAreaSmallSegue" id="FfC-Yg-ylK"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -292,6 +329,7 @@
                     </view>
                     <connections>
                         <outlet property="selectGAreaMiddleTable" destination="pYg-pk-ZUR" id="9Ww-vh-unL"/>
+                        <segue destination="efr-2m-M4S" kind="show" identifier="selectGAreaSmallSegue" id="gcL-Nm-bRK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oz2-mR-fxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -325,7 +363,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

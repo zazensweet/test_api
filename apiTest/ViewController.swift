@@ -20,6 +20,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // テキストビュー
     @IBOutlet weak var sortResult: UITextView!
     
+    // 検索するボタン
+    @IBOutlet weak var searchBtn: UIButton!
+    
     // フリーワード用のテキストフィールド
     var freeWord: UITextField!
     
@@ -46,6 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.freeWord.delegate = self
         
+        // 空の行のセパレータを消す
         self.startTable.tableFooterView = UIView()
         
     }
@@ -125,22 +129,51 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-   
+    
+    
+    // 検索ボタンをタップ
+    @IBAction func goSearchBtn(sender: AnyObject) {
+        
+        // 検索結果一覧画面へ
+        performSegueWithIdentifier("searchSegue", sender: nil)
+        
+    }
+    
     
     // セグエ準備
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if (segue.identifier == "selectAreaSegue") {
+            
             (segue.destinationViewController as! SelectAreaViewController).searchModel = self.searchModel
+            
+        } else if (segue.identifier == "searchSegue") {
+            
+            (segue.destinationViewController as! SearchViewController).searchModel = self.searchModel
+            
         }
         
     }
 
     
+    // 戻ってきた時のエリアを選ぶの表示
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.startTable.reloadData()
+        
+        self.printSearchModel()
+        
+    }
+    
+    
     // SearchModelの状況確認
     func printSearchModel() {
         print("-----------検索条件-----------")
         print("フリーワード：\(searchModel.freeWord)")
+        print("選択したエリア：\(searchModel.selectArea)")
+        print("選択したエリアコード：\(searchModel.selectAreaCode)")
+        print("----------------------")
         print("エリア：\(searchModel.area)")
         print("エリアコード：\(searchModel.areaCode)")
         print("都道府県：\(searchModel.pref)")
@@ -155,6 +188,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.sortResult.text =
             "検索条件：\n" +
             "フリーワード：\(searchModel.freeWord)\n" +
+            "選択したエリア：\(searchModel.selectArea)\n" +
+            "選択したエリアコード：\(searchModel.selectAreaCode)\n" +
             "エリア：\(searchModel.area)\n" +
             "エリアコード：\(searchModel.areaCode)\n" +
             "都道府県：\(searchModel.pref)\n" +
@@ -169,16 +204,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    // 戻ってきた時のエリアを選ぶの表示
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    
-        self.startTable.reloadData()
-        
-        self.printSearchModel()
-        
-    }
-    
+
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

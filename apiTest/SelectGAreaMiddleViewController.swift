@@ -140,6 +140,7 @@ class SelectGAreaMiddleViewController: UIViewController, UITableViewDelegate, UI
         if indexPath.row == 0 {
             
             searchModel.selectArea = searchModel.gAreaL
+            searchModel.selectAreaCode = searchModel.gAreaLCode
         
             searchModel.gAreaM = ""
             searchModel.gAreaMCode = ""

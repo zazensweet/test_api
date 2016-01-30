@@ -36,6 +36,17 @@ class SearchModel {
         }
     }
     
+    var _selectAreaCode: String = ""
+    
+    var selectAreaCode: String {
+        get {
+            return self._selectAreaCode
+        }
+        set(newValue) {
+            self._selectAreaCode = newValue
+        }
+    }
+    
     
     // エリア：Area
     var _area: String = ""

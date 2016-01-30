@@ -141,6 +141,7 @@ class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UIT
         if indexPath.row == 0 {
 
             searchModel.selectArea = searchModel.pref
+            searchModel.selectAreaCode = searchModel.prefCode
             
             searchModel.gAreaL = ""
             searchModel.gAreaLCode = ""

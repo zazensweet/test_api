@@ -138,6 +138,7 @@ class SelectGAreaSmallViewController: UIViewController, UITableViewDelegate, UIT
         if indexPath.row == 0 {
             
             searchModel.selectArea = searchModel.gAreaM
+            searchModel.selectAreaCode = searchModel.gAreaMCode
             
             searchModel.gAreaS = ""
             searchModel.gAreaSCode = ""
@@ -147,6 +148,7 @@ class SelectGAreaSmallViewController: UIViewController, UITableViewDelegate, UIT
             searchModel.gAreaS = sortJsonDataArray[indexPath.row]["areaname_s"] as! String
             searchModel.gAreaSCode = sortJsonDataArray[indexPath.row]["areacode_s"] as! String
             searchModel.selectArea = searchModel.gAreaS
+            searchModel.selectAreaCode = searchModel.gAreaSCode
             
         }
         
