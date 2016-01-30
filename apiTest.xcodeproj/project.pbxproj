@@ -22,6 +22,8 @@
 		697DB0001C3E64EF0083601C /* CustomCellFreeWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697DAFFE1C3E64EF0083601C /* CustomCellFreeWord.swift */; };
 		697DB0011C3E64EF0083601C /* CustomCellFreeWord.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697DAFFF1C3E64EF0083601C /* CustomCellFreeWord.xib */; };
 		6981AD251C4363E000535295 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6981AD241C4363E000535295 /* SearchModel.swift */; };
+		69D2006D1C5CEA6900011E43 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D2006C1C5CEA6900011E43 /* SearchResult.swift */; };
+		69D200711C5CEE4600011E43 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D200701C5CEE4600011E43 /* SearchDetailViewController.swift */; };
 		69F8277C1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F8277B1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift */; };
 		69F8277E1C493E73009C9D51 /* SelectGAreaSmallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F8277D1C493E73009C9D51 /* SelectGAreaSmallViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,8 @@
 		697DAFFE1C3E64EF0083601C /* CustomCellFreeWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellFreeWord.swift; sourceTree = "<group>"; };
 		697DAFFF1C3E64EF0083601C /* CustomCellFreeWord.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellFreeWord.xib; sourceTree = "<group>"; };
 		6981AD241C4363E000535295 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		69D2006C1C5CEA6900011E43 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		69D200701C5CEE4600011E43 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		69F8277B1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGAreaMiddleViewController.swift; sourceTree = "<group>"; };
 		69F8277D1C493E73009C9D51 /* SelectGAreaSmallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGAreaSmallViewController.swift; sourceTree = "<group>"; };
 		BB796EDA7C4FD17A1F4B7C67 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,9 +98,11 @@
 				6930E5151C2BC02000228040 /* AppDelegate.swift */,
 				6959740F1C2D237C00CE3E4D /* Config.swift */,
 				6981AD241C4363E000535295 /* SearchModel.swift */,
+				69D2006C1C5CEA6900011E43 /* SearchResult.swift */,
 				692EC0931C4D2D8200C5B6E3 /* SearchController.swift */,
 				6930E5171C2BC02000228040 /* ViewController.swift */,
 				692EC0F71C550E4B00C5B6E3 /* SearchViewController.swift */,
+				69D200701C5CEE4600011E43 /* SearchDetailViewController.swift */,
 				695488421C3B5DE100033887 /* SelectAreaViewController.swift */,
 				695488441C3D02D100033887 /* SelectPrefViewController.swift */,
 				695488641C3E229300033887 /* SelectGAreaLargeViewController.swift */,
@@ -245,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D200711C5CEE4600011E43 /* SearchDetailViewController.swift in Sources */,
 				69F8277C1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift in Sources */,
 				6930E5181C2BC02000228040 /* ViewController.swift in Sources */,
 				695488451C3D02D100033887 /* SelectPrefViewController.swift in Sources */,
@@ -252,6 +259,7 @@
 				6981AD251C4363E000535295 /* SearchModel.swift in Sources */,
 				695488651C3E229400033887 /* SelectGAreaLargeViewController.swift in Sources */,
 				692EC0F81C550E4B00C5B6E3 /* SearchViewController.swift in Sources */,
+				69D2006D1C5CEA6900011E43 /* SearchResult.swift in Sources */,
 				6930E5161C2BC02000228040 /* AppDelegate.swift in Sources */,
 				695974101C2D237C00CE3E4D /* Config.swift in Sources */,
 				692EC0941C4D2D8200C5B6E3 /* SearchController.swift in Sources */,

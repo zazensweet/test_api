@@ -118,11 +118,30 @@
                     <navigationItem key="navigationItem" id="ywx-pd-R4f"/>
                     <connections>
                         <outlet property="searchTable" destination="rnW-lj-kdU" id="84i-oZ-t22"/>
+                        <segue destination="Pgg-ZD-291" kind="show" identifier="searchDetailSegue" id="Nxm-Vp-h3z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgq-ci-ypA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="376" y="1399"/>
+        </scene>
+        <!--SearchDetailViewController-->
+        <scene sceneID="oxS-yX-YNe">
+            <objects>
+                <viewController title="SearchDetailViewController" id="Pgg-ZD-291" customClass="SearchDetailViewController" customModule="apiTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kJ3-LG-G5L"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Sx-gu-YWD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eE7-N8-xdv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMl-xr-Jk2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1070" y="1399"/>
         </scene>
         <!--SelectAreaViewController-->
         <scene sceneID="nHl-7h-c88">

@@ -33,12 +33,18 @@ class SearchController {
     
     // Alamofireのrequest用に用意
     let searchURL = "http://api.gnavi.co.jp/RestSearchAPI/20150630/"
-    let option: [String: AnyObject]?
+    var option: [String: AnyObject]?
 
     
-    init(areaPara:String, areaCode:String) {
-        option = ["keyid" : gnavi.apikey, "format" : "json", areaPara : areaCode]
+//    init(areaPara:String, areaCode:String) {
+//        option = ["keyid" : gnavi.apikey, "format" : "json", areaPara : areaCode]
+//    }
+
+    
+    func setOption(areaPara:String, areaCode:String, hitPerPage: Int) {
+        option = ["keyid" : gnavi.apikey, "format" : "json", areaPara : areaCode, "hit_per_page" : hitPerPage]
     }
+
     
     
     // API Request 開始

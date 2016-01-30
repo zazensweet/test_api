@@ -140,8 +140,10 @@ class SelectGAreaLargeViewController: UIViewController, UITableViewDelegate, UIT
         
         if indexPath.row == 0 {
 
+            // 選択したエリア情報をおさめる
             searchModel.selectArea = searchModel.pref
             searchModel.selectAreaCode = searchModel.prefCode
+            searchModel.selectAreaPara = "pref"
             
             searchModel.gAreaL = ""
             searchModel.gAreaLCode = ""

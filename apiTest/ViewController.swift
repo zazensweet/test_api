@@ -173,6 +173,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("フリーワード：\(searchModel.freeWord)")
         print("選択したエリア：\(searchModel.selectArea)")
         print("選択したエリアコード：\(searchModel.selectAreaCode)")
+        print("選択したエリアパラ：\(searchModel.selectAreaPara)")
         print("----------------------")
         print("エリア：\(searchModel.area)")
         print("エリアコード：\(searchModel.areaCode)")
@@ -190,6 +191,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             "フリーワード：\(searchModel.freeWord)\n" +
             "選択したエリア：\(searchModel.selectArea)\n" +
             "選択したエリアコード：\(searchModel.selectAreaCode)\n" +
+            "選択したエリアパラ：\(searchModel.selectAreaPara)\n" +
             "エリア：\(searchModel.area)\n" +
             "エリアコード：\(searchModel.areaCode)\n" +
             "都道府県：\(searchModel.pref)\n" +

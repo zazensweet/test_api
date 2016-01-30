@@ -11,6 +11,9 @@
 class SearchModel {
     
     
+    // MARK: - 絞り込んだ情報
+    
+    
     // フリーワード文言
     var _freeWord: String = ""
     
@@ -46,6 +49,20 @@ class SearchModel {
             self._selectAreaCode = newValue
         }
     }
+    
+    var _selectAreaPara: String = ""
+    
+    var selectAreaPara: String {
+        get {
+            return self._selectAreaPara
+        }
+        set(newValue) {
+            self._selectAreaPara = newValue
+        }
+    }
+    
+    
+    // MARK: - 各情報
     
     
     // エリア：Area

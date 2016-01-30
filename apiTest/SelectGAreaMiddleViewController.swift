@@ -139,8 +139,10 @@ class SelectGAreaMiddleViewController: UIViewController, UITableViewDelegate, UI
         
         if indexPath.row == 0 {
             
+            // 選択したエリア情報をおさめる
             searchModel.selectArea = searchModel.gAreaL
             searchModel.selectAreaCode = searchModel.gAreaLCode
+            searchModel.selectAreaPara = "areacode_l"
         
             searchModel.gAreaM = ""
             searchModel.gAreaMCode = ""
