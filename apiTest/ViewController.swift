@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var freeWord: UITextField!
     
     // カスタムセル
-    var customCell: CustomCellFreeWord!
+    var customCell = CustomCellFreeWord()
     
     // SearchModel
     var searchModel = SearchModel()

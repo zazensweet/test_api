@@ -24,6 +24,8 @@
 		6981AD251C4363E000535295 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6981AD241C4363E000535295 /* SearchModel.swift */; };
 		69D2006D1C5CEA6900011E43 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D2006C1C5CEA6900011E43 /* SearchResult.swift */; };
 		69D200711C5CEE4600011E43 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D200701C5CEE4600011E43 /* SearchDetailViewController.swift */; };
+		69D200921C5DC99500011E43 /* CustomCellResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D200901C5DC99500011E43 /* CustomCellResult.swift */; };
+		69D200931C5DC99500011E43 /* CustomCellResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D200911C5DC99500011E43 /* CustomCellResult.xib */; };
 		69F8277C1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F8277B1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift */; };
 		69F8277E1C493E73009C9D51 /* SelectGAreaSmallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F8277D1C493E73009C9D51 /* SelectGAreaSmallViewController.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		6981AD241C4363E000535295 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		69D2006C1C5CEA6900011E43 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		69D200701C5CEE4600011E43 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
+		69D200901C5DC99500011E43 /* CustomCellResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellResult.swift; sourceTree = "<group>"; };
+		69D200911C5DC99500011E43 /* CustomCellResult.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellResult.xib; sourceTree = "<group>"; };
 		69F8277B1C47F4C4009C9D51 /* SelectGAreaMiddleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGAreaMiddleViewController.swift; sourceTree = "<group>"; };
 		69F8277D1C493E73009C9D51 /* SelectGAreaSmallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGAreaSmallViewController.swift; sourceTree = "<group>"; };
 		BB796EDA7C4FD17A1F4B7C67 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +115,8 @@
 				6930E5191C2BC02000228040 /* Main.storyboard */,
 				697DAFFF1C3E64EF0083601C /* CustomCellFreeWord.xib */,
 				697DAFFE1C3E64EF0083601C /* CustomCellFreeWord.swift */,
+				69D200911C5DC99500011E43 /* CustomCellResult.xib */,
+				69D200901C5DC99500011E43 /* CustomCellResult.swift */,
 				6930E51C1C2BC02000228040 /* Assets.xcassets */,
 				6930E51E1C2BC02000228040 /* LaunchScreen.storyboard */,
 				6930E5211C2BC02000228040 /* Info.plist */,
@@ -189,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D200931C5DC99500011E43 /* CustomCellResult.xib in Resources */,
 				697DB0011C3E64EF0083601C /* CustomCellFreeWord.xib in Resources */,
 				6930E5201C2BC02000228040 /* LaunchScreen.storyboard in Resources */,
 				6930E51D1C2BC02000228040 /* Assets.xcassets in Resources */,
@@ -262,6 +269,7 @@
 				69D2006D1C5CEA6900011E43 /* SearchResult.swift in Sources */,
 				6930E5161C2BC02000228040 /* AppDelegate.swift in Sources */,
 				695974101C2D237C00CE3E4D /* Config.swift in Sources */,
+				69D200921C5DC99500011E43 /* CustomCellResult.swift in Sources */,
 				692EC0941C4D2D8200C5B6E3 /* SearchController.swift in Sources */,
 				697DB0001C3E64EF0083601C /* CustomCellFreeWord.swift in Sources */,
 				69F8277E1C493E73009C9D51 /* SelectGAreaSmallViewController.swift in Sources */,

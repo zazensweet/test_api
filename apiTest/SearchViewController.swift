@@ -23,14 +23,17 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // SearchResult
     var searchResult = SearchResult()
     
+    // SearchController
+    let searchCont = SearchController()
+    
     // SearchModelの選択したエリア情報用
     var sec: String? // コード
     var sep: String? // パラメータ名
     var fw: String? // フリーワード
     var hpp: Int? // 表示件数
     
-    // SearchController
-    let searchCont = SearchController()
+    // カスタムセル
+    var customCell = CustomCellResult()
     
     
     override func viewDidLoad() {
@@ -44,6 +47,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             self.title = "\(searchModel.selectArea)（\(searchModel.freeWord)）"
         }
+        
+        //カスタムセルを指定
+        //self.customCell = UINib(nibName: "CustomCellResult", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! CustomCellResult
+        let nib  = UINib(nibName: "CustomCellResult", bundle:nil)
+        searchTable.registerNib(nib, forCellReuseIdentifier:"Cell")
+    
             
         self.searchTable.delegate = self
         self.searchTable.dataSource = self
@@ -105,10 +114,16 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     
+    // 高さ
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 120
+    }
+    
+    
     // 各行のセルを返す
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomCellResult
         
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
@@ -116,11 +131,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return cell
         }
         
-        cell.textLabel?.text = jsonData == nil ? "-" : jsonData["rest"]![indexPath.row]["name"] as! String
+        // イメージ
+        let si = jsonData["rest"]![indexPath.row]["image_url"]!!["shop_image1"] as! String
         
+        if let url = NSURL(string: si) {
+            if let imageData :NSData = NSData(contentsOfURL: url) {
+                cell.shopImage.image = UIImage(data:imageData)
+                print(cell.shopImage.image)
+            }
+        }
+        
+        // 店舗名
+        cell.shopName.text = jsonData == nil ? "-" : jsonData["rest"]![indexPath.row]["name"] as! String
         
         return cell
-        
+
     }
     
     
@@ -134,7 +159,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchTable.deselectRowAtIndexPath(indexPath, animated: true)
         
         // 選択したエリア情報をおさめる
-        self.searchResult.name = jsonData["rest"]![indexPath.row]["name"] as! String
         self.searchResult.name = jsonData["rest"]![indexPath.row]["name"] as! String
         self.searchResult.name_kana = jsonData["rest"]![indexPath.row]["name_kana"] as! String
         self.searchResult.url = jsonData["rest"]![indexPath.row]["url"] as! String
